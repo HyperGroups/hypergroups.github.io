@@ -1,3 +1,7 @@
+# 仅 dev 分支提交，master 不提交（见 dev/README.md）
+dev/
+skills/
+
 _site
 Working/*
 1Site/*
