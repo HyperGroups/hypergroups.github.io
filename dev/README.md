@@ -16,7 +16,7 @@
 - **master**：仅站点与构建相关文件；`.gitignore` 已忽略 `dev/` 与 `skills/`。
 - **dev**：在 master 基础上增加 `dev/`、`skills/` 的提交；从 master 合并时若 `.gitignore` 冲突，保留 dev 分支的忽略规则（不忽略 `dev/`、`skills/`）。
 
-## 常用
+## 常用（辅助文档与脚本已迁入 dev/，根目录不再保留）
 
-- 本地 Jekyll 环境：见 [docs/local-setup.md](docs/local-setup.md)
-- 一键安装 Ruby 依赖：在项目根执行 `.\dev\scripts\setup-ruby-env.ps1`
+- 本地 Jekyll 环境：见 [docs/local-setup.md](docs/local-setup.md)（原 `LOCAL.md`）
+- 一键安装 Ruby 依赖：在项目根执行 `.\dev\scripts\setup-ruby-env.ps1`（原根目录脚本已移入此处）

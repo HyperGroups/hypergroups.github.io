@@ -1,129 +1,21 @@
 ---
 layout: default
+title: 首页
 ---
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	<title>Hyper-Space</title>
-	<link href="{{ site.baseurl }}/HTMLFiles/index.css" rel="stylesheet">	
-	</head>
-			<body style="font-size: 100%;">
-			
-		<div class="container">
-			<div class="content">
-		
-<p class="Section">
- <a id="keep"></a>
- Welcome to my wonderland, this is an old version site, latest site you can see hypergroups.cn/hypergroups or click the following button
-</p>
 
-
-
-<p><img src="HTMLFiles/index_1.png" alt="index_1.png" width="400" height="75" style="vertical-align:middle;" usemap="#map_1" href="/hypergroups"/>
-<map name="map_1">
-<area shape="rect" coords="263,69,327,5" title="博客中左侧的编号为Input单元的编号，点击[In]按钮可以显示代码单元复制" href="/hypergroups" />
-<area shape="rect" coords="200,69,263,5" title="在博客的右上角，点击可以关闭侧边栏，如目录栏和章节导航栏。" href="/hypergroups"/>
-<area shape="rect" coords="136,69,200,5" title="150%是我浏览许多网站常设的放大比例，字体会比较大，100%---125%可能版式会比较好。" href="/hypergroups" />
-<area shape="rect" coords="72,69,136,5" title="本博客在我自己电脑上一般是按Chrome浏览器的125%-150%的放大比例来观察最佳效果进行调整的。" href="/hypergroups" />
-</map></p><p class="Section">
- Videos
-</p>
-
-
-
-<p class="Image">
- <img src="HTMLFiles/index_2.png" alt="index_2.png" width="1000" height="657" style="vertical-align:middle;" usemap="#map_2" />
-<map name="map_2">
-<area shape="rect" coords="0,657,1000,0" href="/Pages/Video" />
-</map>
-</p>
-
-<p class="Section">
- Photos
-</p>
-
-
-
-<p class="Image">
- <img src="HTMLFiles/index_3.png" alt="index_3.png" width="1000" height="241" style="vertical-align:middle;" usemap="#map_3" />
-<map name="map_3">
-<area shape="rect" coords="0,241,1000,0" href="/Pages/Photo" />
-</map>
-</p>
-
-<p class="Section">
- Articles
-</p>
-
-
-
-<table class='Text'>
- <tr style='vertical-align: top;'>
-  <td style='text-align: left;'><span class='TextInline' style='border: 0px;border-style: solid;border-color: #000000;'>      
-<div class="">
-
-    <ul>
-        {% for post in site.posts limit:20 %}
-          <li><a href="{{ site.baseurl}}{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
+<div class="row">
+  <div class="col-md-9">
+    <h1>{{ site.name }}</h1>
+    <p class="lead">{{ site.description }}</p>
+    <p>本地预览：<code>bundle exec jekyll serve</code>，详见 <a href="https://github.com/HyperGroups/hypergroups.github.io/blob/dev/dev/docs/local-setup.md">dev 分支 dev/docs/local-setup.md</a>。</p>
+    <hr />
+    <h2>文章</h2>
+    <ul class="list-unstyled">
+      {% for post in site.posts %}
+      <li>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%Y-%m-%d" }} — {{ post.title }}</a>
+      </li>
+      {% endfor %}
     </ul>
+  </div>
 </div>
-      </span></td>
-  <td style='text-align: left;'><table class='ArticleInline'>
- <tr style='vertical-align: baseline;'>
-  <td style='text-align: center;'><span><img src="HTMLFiles/index_4.png" alt="index_4.png" width="100" height="102" style="vertical-align:middle" /></span></td>
- </tr>
- <tr style='vertical-align: baseline;'>
-  <td style='text-align: center;'><span>20&lArr;Recent Posts</span></td>
- </tr>
- <tr style='vertical-align: baseline;'>
-  <td style='text-align: center;'><span>Total Count&rArr;{{site.posts.size}}</span></td>
- </tr>
-</table>
-
-</td>
- </tr>
-</table>
-
-<p class="Section">
- Topics
-</p>
-
-
-
-<p class="Section">
-Hello World
-</p>
-
-
-
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"hypergroups"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
-
-
-
-
-<div style="font-family:Helvetica; font-size:11px; width:100%; border:1px none #999999; border-top-style:solid; padding-top:2px; margin-top:20px;">
- <a href="http://www.wolfram.com/language/" style="color:#000; text-decoration:none;">
-  <span style="color:#555555">Created with the Wolfram Language</span> 
- </a>
-</div>
-
-</div>
-
-</div>
-	</body>
-
-</html>

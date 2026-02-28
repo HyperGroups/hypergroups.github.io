@@ -1,6 +1,7 @@
 # 本地 Jekyll 环境
 
-本仓库的 `Gemfile` 已锁定为与 [GitHub Pages 版本](https://pages.github.com/versions/) 一致（Jekyll 3.10.0、kramdown-parser-gfm 1.1.0），本地构建与 GitHub 上一致。
+本仓库的 `Gemfile` 已锁定为与 [GitHub Pages 版本](https://pages.github.com/versions/) 一致（Jekyll 3.10.0、kramdown-parser-gfm 1.1.0），本地构建与 GitHub 上一致。  
+（原根目录 `LOCAL.md`、`setup-ruby-env.ps1` 已迁移到此目录与 `dev/scripts/`，仅 dev 分支保留。）
 
 ## Windows 10 安装
 
