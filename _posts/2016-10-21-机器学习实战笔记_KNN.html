@@ -1,0 +1,16 @@
+---
+layout: post
+title: "机器学习实战笔记-KNN"
+category: MachineLearning
+date: 2016-10-21
+---
+
+<p>K 近邻（KNN）分类算法札记。inX 与矩阵中每个向量计算距离，按距离排序后选前 k 个点投票。</p>
+
+<h2>与 Mathematica 的对应</h2>
+
+<p><code>tile</code>（平铺）→ <code>ConstantArray</code>；<code>argsort</code> 返回位置 → <code>Ordering</code>；<code>Extract[list, List /@ orders]</code> 按 Ordering 取元素。</p>
+
+<h2>实现要点</h2>
+
+<p><code>diffMat = ConstantArray[vec, n] - dataSet</code>；<code>sqDistances = Total[diffMat^2, {2}]</code>；<code>Ordering[distances]</code> 得排序索引；对前 k 个索引对应的 label 投票，取出现次数最多的类别。</p>

@@ -1,6 +1,12 @@
 # dev/ and skills/ are tracked on dev branch only (see dev/README.md)
+dev/
 
 _site
+_post_markdown
+_post_md
+_post_md_renovated
+_post_md_latest
+image-index-output
 Working/*
 1Site/*
 1Notebooks/*

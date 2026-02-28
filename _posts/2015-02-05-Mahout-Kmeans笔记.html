@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Mahout-Kmeans笔记"
+category: Computer
+date: 2015-02-05
+---
+
+<h2>环境</h2>
+
+<p>Ubuntu 14.10 x64，Hadoop 2.5.2（Local），Mahout 0.9。Hadoop 2.2 以上需自己编译 Mahout 0.9 并修改相应 .pom 版本号。</p>
+
+<h2>数据准备</h2>
+
+<p>注意行数据列数一致；默认 HDFS 输入路径可能为 <code>/user/hadoop/testdata</code>。用 <code>hadoop fs -put</code> 上传数据。</p>
+
+<h2>数据转换与 Kmeans</h2>
+
+<p>数据转换对跑例子非必须。Kmeans 聚类后检查输出路径与结果。</p>

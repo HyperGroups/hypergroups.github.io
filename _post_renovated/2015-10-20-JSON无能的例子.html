@@ -1,0 +1,14 @@
+---
+layout: post
+title: "JSON无能的一些情况"
+category: Mathematica
+date: 2015-10-20
+---
+
+<h2>问题</h2>
+
+<p>外部获取的结构化数据在导入时若有小问题，常需预处理。例如 Python 中「字典套字典」用单引号表示：<code>{'1':{'a':1,'b':1}}</code>。JSON 标准要求双引号，因此 <code>ImportString[str, "JSON"]</code> 会报错。</p>
+
+<h2>解决</h2>
+
+<p>在 Python 端用 <code>json.dumps()</code> 输出标准 JSON；或在 Mathematica 中先 <code>StringReplace</code> 把单引号换成双引号（需注意键名与字符串中的引号），再 <code>ImportString</code>。复杂嵌套时可写简单解析逻辑。</p>

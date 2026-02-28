@@ -1,0 +1,14 @@
+---
+layout: post
+title: "区间作图与区间的相交"
+category: Mathematica
+date: 2015-03-01
+---
+
+<h2>区间作图</h2>
+
+<p>给定区间列表，用 <code>Interval /@ inters</code> 转成 Interval 对象，再用 <code>NumberLinePlot</code> 画数轴图。相邻区间的交集可用 <code>IntervalIntersection</code> 配合 <code>Partition</code> 求得。</p>
+
+<h2>剔除相交区间的后一个</h2>
+
+<p>若要求「两两相交则剔除后者」，需按顺序遍历：对相邻区间判断是否相交，若相交则剔除后一个。可用 <code>IntervalMemberQ</code>、<code>IntervalIntersection</code> 等辅助。</p>

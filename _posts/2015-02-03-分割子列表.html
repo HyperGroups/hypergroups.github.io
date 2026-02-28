@@ -1,0 +1,16 @@
+---
+layout: post
+title: "分割子列表"
+category: Mathematica
+date: 2015-02-03
+---
+
+<p>Mathematica 中按条件或按长度分割列表的两种常见需求。</p>
+
+<h2>按条件分割</h2>
+
+<p>给定列表和阈值（如 50），要求每段子列表的累加和不超过该阈值。可用 <code>TakeWhile[Accumulate@list, # &lt; 50 &amp;]</code> 确定每段长度，配合 <code>Reap</code>/<code>Sow</code> 与 <code>FixedPointList</code> 反复分割，直到余下为空。</p>
+
+<h2>按长度列表分割</h2>
+
+<p>给定长度序列（如 {3, 5, 2}），将列表依次按 3、5、2 个元素分成子列表。可用 <code>Internal`PartitionRagged</code> 或 <code>TakeDrop</code> 等实现。核心思路：每次 <code>Take[list, n]</code> 与 <code>Drop[list, n]</code>，循环直到长度序列用完。</p>

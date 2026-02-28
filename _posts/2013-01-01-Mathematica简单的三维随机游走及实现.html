@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Mathematica简单的三维随机游走及实现"
+category: Mathematica
+date: 2013-01-01
+---
+
+<p>用 Mathematica 实现三维随机游走的几种简单方式。</p>
+
+<h2>方法一：立方体叠加</h2>
+
+<p>用 <code>FoldList</code> 配合 <code>TranslationTransform</code>，每次在随机方向（六方向之一）平移一个立方体，得到游走路径。</p>
+
+<h2>方法二：格点游走</h2>
+
+<p>定义格点方向（如八立方体顶点），用 <code>Accumulate</code> 累加随机步长，<code>Graphics3D[Tube[data]]</code> 绘制管道。</p>

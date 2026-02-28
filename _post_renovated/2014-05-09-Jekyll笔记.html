@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Jekyll+GitHub笔记之重装记录1"
+category: Jekyll笔记
+date: 2014-05-09
+---
+
+<p>Jekyll 与 GitHub Pages 环境重装后的记录整理。</p>
+
+<h2>GitHub 官方 Jekyll 的版本</h2>
+
+<p>参考：<a href="http://hivan.me/octopress-install-to-windows8/">Octopress 在 Windows 8 上的安装</a>。</p>
+
+<h3>装好 Ruby 后还需 cd 到 DevKit 目录</h3>
+
+<p>重装系统后，若 Ruby 的安装文件等在 E 盘，设置好环境变量后，有时会忽略 DevKit 的初始化。装好 Ruby 后，需要 cd 到 DevKit 目录执行一次，完成 DevKit 的配置。</p>
+
+<p>之后，建议在 CMD 中更新 gem，以保障后续安装顺利。</p>
+
+<h2>一些问题</h2>
+
+<h3>Title 转小写的问题</h3>
+
+<p>默认不设置 <code>title: YourTitle</code> 时，Jekyll 会从文件名自动获得 title。在使用 <code>{{ post.title }}</code> 时，会把驼峰式命名转换为首字母大写形式，例如 HelloWorld 会变成 Helloworld，显示不理想。解决办法是在 front matter 中显式设置 <code>title</code> 变量。</p>

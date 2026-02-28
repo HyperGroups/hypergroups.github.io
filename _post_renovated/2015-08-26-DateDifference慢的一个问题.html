@@ -1,0 +1,18 @@
+---
+layout: post
+title: "DateDifference慢的一个问题"
+category: Mathematica
+date: 2015-08-26
+---
+
+<h2>背景</h2>
+
+<p>数据量达百万行时，需关注性能；能否「秒出」是常见容忍标准。百万行跑 10 分钟尚可接受；若表有 10 个字段，量级到千万行，跑 100 分钟就太慢，需优化或对比 Python/Java 等工具。</p>
+
+<h2>问题</h2>
+
+<p>如何快速计算两列字符串日期的差值？<code>DateDifference</code> 对大列表逐行调用较慢。</p>
+
+<h2>优化思路</h2>
+
+<p>先统一解析为时间对象再批量相减；或转成数值时间戳后做差，避免 repeated parsing；用向量化、Compile，或外部库（如 Python pandas）处理。</p>

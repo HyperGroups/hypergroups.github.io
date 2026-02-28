@@ -1,0 +1,20 @@
+---
+layout: post
+title: "函数选项与可选值的一个问题"
+category: Mathematica
+date: 2015-09-03
+---
+
+<p>Mathematica 中函数选项与默认值相关的若干问题。</p>
+
+<h2>默认选值</h2>
+
+<p>当 <code>Options[f]</code> 中默认值引用了未求值的符号时，可能导致选项值异常。</p>
+
+<h2>选项与默认值</h2>
+
+<p><code>OptionsPattern</code> 与 <code>OptionValue</code> 配合使用，但某些 DownValue 形式下，<code>OptionValue</code> 无法正确读取用户传入的选项。可参考「函数选项的一个问题」中的 UpValue、FilterRules 等解法。</p>
+
+<h2>总结</h2>
+
+<p>选项的默认值与用户传入值、求值顺序有关；需结合具体函数定义形式选择合适写法。</p>

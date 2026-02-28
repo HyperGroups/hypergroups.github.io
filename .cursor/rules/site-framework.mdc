@@ -1,0 +1,25 @@
+---
+description: 本站点应用框架说明（Jekyll / GitHub Pages / Bootstrap）
+alwaysApply: true
+---
+
+# Hyper-Space 站点应用框架
+
+## 技术栈
+
+- **生成与托管**：Jekyll 静态站点，部署于 GitHub Pages
+- **前端**：Bootstrap 3（`css/bootstrap.min.css`）、jQuery（`js/jquery.min.js`）
+- **主题与样式**：`css/theme.css`（主色、导航、卡片、列表、页脚等），使用 CSS 变量（如 `--color-accent`、`--shadow-md`）
+- **配置**：`_config.yml`（`site.name`、`site.description`、`url`、`baseurl`、`permalink` 等）
+
+## 目录与约定
+
+- **布局**：`_layouts/default.html` 为默认布局（include header → 主内容区 `{{ content }}` → include footer）；`_layouts/post.html` 用于文章页（标题、日期、正文、上下篇导航）
+- **公共片段**：`_includes/header.html`（导航栏、CSS/JS 引用）、`_includes/footer.html`（页脚）
+- **页面**：首页 `index.html`，归档 `archives.html`，关于 `about.md`；文章在 `_posts/`，Markdown + YAML front matter（`layout`、`title`、`date`、`categories`、`tags`）
+- **资源**：样式在 `css/`，脚本在 `js/`；站内链接使用 `{{ site.baseurl }}{{ page.url }}` 或 `{{ site.baseurl }}/path`
+
+## 修改时注意
+
+- 站点表述：由 Jekyll 构建与维护，不写「由 Wolfram Mathematica 集成/部署」；历史遗留的 Wolfram 导出内容仅在博文或旧 HTML 中保留
+- 新增样式优先写在 `css/theme.css`，保持与现有变量和类名一致；勿改 Bootstrap 源文件

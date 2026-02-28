@@ -1,0 +1,16 @@
+---
+layout: post
+title: "WordCloud初玩"
+category: Mathematica
+date: 2015-05-01
+---
+
+<p>Mathematica 内置 <code>WordCloud</code> 函数，可将文本或「词→权重」列表生成词云。可指定形状、颜色、字体等。</p>
+
+<h2>用法</h2>
+
+<p>直接对字符串调用 <code>WordCloud["..."]</code>，或 <code>WordCloud[{word1 -&gt; weight1, ...}]</code> 指定权重。例如用 <code>EntityValue[CountryData[], {"Name", "Population"}]</code> 获取国家与人口，再以人口为权重生成词云。</p>
+
+<h2>生成网页</h2>
+
+<p>可将词云导出为图片，嵌入网页或在线展示。</p>

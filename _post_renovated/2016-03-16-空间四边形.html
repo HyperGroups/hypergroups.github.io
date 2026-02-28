@@ -1,0 +1,8 @@
+---
+layout: post
+title: "空间四边形"
+category: Mathematica
+date: 2016-03-16
+---
+
+<p>Mathematica 中用 Graphics3D 绘制空间四边形的札记。通过 <code>RotationMatrix</code> 将平面四边形绕 z 轴旋转 90° 得到四个面，用 <code>Tuples[Range[-1,1], {2}]</code> 生成格点，再结合 <code>Texture</code>、<code>Polygon</code>、<code>VertexTextureCoordinates</code> 在 3D 四边形上贴图。核心为 <code>pointPositionFront</code> 与 <code>RotationMatrix</code> 组合得到四个面的顶点。</p>

@@ -1,0 +1,20 @@
+---
+layout: post
+title: "VMWare11里Ubuntu14.04进入修复模式后，文件ReadOnly的解决方法"
+category: Computer
+date: 2014-05-06
+---
+
+<p>VMWare 11 中 Ubuntu 14.04 进入修复模式后，根文件系统挂载为只读。执行：</p>
+
+<pre><code># mount -o remount,rw /</code></pre>
+
+<p>可将根分区重新挂载为可写。参考：<a href="http://blog.csdn.net/knityster/article/details/6312400">CSDN 相关文章</a>。</p>
+
+<h2>背景</h2>
+
+<p>当时在配置 scp 时修改了 <code>/etc/passwd</code>，导致某用户在图形界面消失，只能以 guest 访问。进入修复模式时遇到上述 ReadOnly 问题。</p>
+
+<h2>快捷键冲突</h2>
+
+<p>VMWare 默认 Ctrl+Alt 切回宿主机，可能与 Ubuntu 的 Ctrl+Shift+F1 冲突。可在 VMWare 的 [编辑]→[首选项] 中禁用或调整快捷键。调整后，纯命令行模式下回车有时需用 Shift+Enter，空格可能需按两次。</p>

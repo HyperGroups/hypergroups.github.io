@@ -1,0 +1,14 @@
+---
+layout: post
+title: "GitHub笔记"
+category: Computer
+date: 2015-09-24
+---
+
+<h2>SSH</h2>
+
+<p><code>ssh-keygen</code> 生成密钥；<code>vim ~/.ssh/id_rsa.pub</code> 查看公钥；将公钥添加到 GitHub，即可用 <code>git clone git@...</code> 克隆仓库。</p>
+
+<h2>基础命令</h2>
+
+<p><code>git clone</code>、<code>git checkout</code>、<code>git pull</code>、<code>git add</code>、<code>git commit -m "..."</code> 这几条组合即可完成日常操作。多人协作、多次提交或冲突时，需熟悉 <code>git rebase</code>、<code>git revert</code>、<code>git merge</code> 等。</p>

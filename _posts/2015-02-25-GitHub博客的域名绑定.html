@@ -1,0 +1,20 @@
+---
+layout: post
+title: "GitHub博客的域名绑定"
+category: Help
+date: 2015-02-25
+---
+
+<p>GitHub Pages 可绑定自定义域名，但同一仓库一般只能绑定一个域名。</p>
+
+<h2>绑定步骤</h2>
+
+<p>较易成功的是 <code>blog.hypergroups.cn</code> 这类子域名。若要绑定 <code>www.hypergroups.cn</code> 或 <code>hypergroups.cn</code>，在仓库根目录的 <code>CNAME</code> 文件中填写 <code>www.hypergroups.cn</code>。在域名商处添加 A 记录，指向 GitHub 的 IP。网上常见有 192、207、113 等，可能随地区和时期不同，可先 <code>ping hypergroups.github.io</code> 获取当前 IP 作为参考。</p>
+
+<h2>常见问题</h2>
+
+<p>绑好后有时本地仍打不开，可能因 DNS 生效较慢。可咨询他人能否访问；若能访问则多为本地缓存问题。Windows 下执行：</p>
+
+<pre><code>ipconfig /flushdns</code></pre>
+
+<p>清理 DNS 缓存后再试。</p>

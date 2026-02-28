@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Calculating24"
+category: Mathematica
+date: 2016-03-16
+---
+
+<p>用 Mathematica 算「24点」的札记。四张牌、三种运算符的排列组合，用 <code>Tuples</code>、<code>Replace</code>、<code>Fold</code>、<code>Inactive</code> 构造表达式树，<code>Select[res, Activate[#]==24&amp;]</code> 筛选等于 24 的表达式。</p>
+
+<h2>显示问题</h2>
+
+<p>希望把 <code>((6+4)+-2)*3</code> 显示为 <code>((6+4)-2)*3</code>。可用 <code>StringForm</code> 或自定义格式化仅做显示。</p>

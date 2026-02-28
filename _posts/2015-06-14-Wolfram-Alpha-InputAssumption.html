@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Wolfram-Alpha查询输入参数设定"
+category: Mathematica
+date: 2015-06-14
+---
+
+<p>当 Wolfram Alpha 对同一查询有多种解读时，可用 <code>InputAssumptions</code> 指定采用哪种。</p>
+
+<h2>用法</h2>
+
+<p><code>WolframAlpha["Euler Rotation", "InputAssumptions"]</code> 列出所有可能假设；选定某一项后，用 <code>InputAssumptions -&gt; {"..."}</code> 强制采用。适用于「欧拉角」「单位」等有歧义的查询。</p>

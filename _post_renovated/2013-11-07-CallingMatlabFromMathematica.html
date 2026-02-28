@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Mathematica和Matlab的互相调用"
+category: Mathematica
+date: 2013-11-07
+---
+
+<p>通过 <a href="http://matlink.org/">MatLink</a> 程序包，Mathematica 可调用 Matlab。</p>
+
+<h2>基本用法</h2>
+
+<p><code>Needs["MATLink`"]</code> 加载；<code>OpenMATLAB[]</code> 启动 Matlab 引擎；<code>MEvaluate["mat = magic(4)"]</code> 在 Matlab 中执行；<code>MGet["mat"]</code> 取回变量；<code>MSet["x", {1,2,3}]</code> 传入数据。可实现双向数据交换与函数调用。</p>

@@ -1,0 +1,16 @@
+---
+layout: post
+title: "模型的简单Ensemble"
+category: Computer
+date: 2017-06-13
+---
+
+<p>模型层面的 Ensemble：如 GBDT、RandomForest 本身是多个小模型的混合。两个 LR 模型可做加权平均；两模型 auc 差别不大时，加权平均常能提升；lr+gbdt 融合有时效果很好。当两模型 auc 差别较大时，难以超过高者。</p>
+
+<h2>分数分布</h2>
+
+<p>融合效果受两模型预测分数分布影响。LR、FM 的分数分布各有特点。</p>
+
+<h2>另一种融合方式</h2>
+
+<p>对两模型参数求平均；或一个模型输出给下一个模型做 boosting/stack。参考 Mathematica ClassifierEnsembles、gbdt+lr 等方案。</p>

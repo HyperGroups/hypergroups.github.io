@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Unicode编码笔记"
+category: Mathematica
+date: 2013-03-01
+---
+
+<p>Unicode、UTF-8、ANSI 是文本处理中最常接触的几种编码。本文整理了一些在 Mathematica 与浏览器中与之相关的用法与问题。</p>
+
+<h2>基本概念</h2>
+
+<p>Unicode（统一码）为每种语言的每个字符设定统一的二进制编码，满足跨语言、跨平台的需求。Mathematica 默认 Import 使用 UTF-8，CharacterEncoding 默认与 CP936、CP949 相关。</p>
+
+<h2>浏览器与 URL</h2>
+
+<p>在 IE 地址栏搜索中文时，会变成 <code>%E6%B1%89</code> 这类百分号编码；Chrome 可能直接显示中文。复制到 Mathematica 后又会转为 UTF-8 形式。</p>
+
+<p>可以用 <code>ToCharacterCode</code>、<code>IntegerString</code> 等实现「汉字 → UTF-8 百分号」的转换，用于构造查询百度词典、百度搜索的 URL。实际使用中，不少接口直接传中文即可，不必先转十六进制。</p>
+
+<h2>TeX 中的 Unicode</h2>
+
+<p>Mathematica 导出含中文的 TeX 时，中文会变成 <code>\unicode{xxxx}</code> 形式。可用 <code>StringReplace</code> 配合 <code>ToExpression</code> 将其转回可显示的中文。对于连续的这种字符串，<code>ToExpression</code> 可直接解析。</p>

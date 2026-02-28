@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Welcome Back To Jekyll"
+category: Help
+date: 2015-08-08
+---
+
+<p>两年前接触 Jekyll，用过一段时间后，因尝试用 Mathematica 生成全部静态页面、后来又转向 Pelican 等，博客更新一度停滞。考虑到笔记仍需及时发布，决定重新拾起 Jekyll。</p>
+
+<h2>重配 Jekyll</h2>
+
+<p>重装系统后，参考往日的 Jekyll+Github 笔记即可快速恢复。基本流程：<code>gem install jekyll</code> → <code>jekyll new my-awesome-site</code> → 把历史文件复制过去 → <code>jekyll serve</code> 本地预览。若硬盘损坏或配置错乱导致 serve 报错，新建一个站点再迁移内容往往更省事。</p>
+
+<p>主题沿用 Twitter 风格；若 baseurl 非空（如子目录部署），需在 <code>{{ASSET_PATH}}</code> 及 <code>_includes/JB/pages_list</code> 中的 <code>{{BASE_PATH}}</code> 前加上 <code>{{site.baseurl}}</code>，以正确加载静态资源。MathJax 可参考官方配置文档重新设置。</p>
+
+<h2>规划</h2>
+
+<p>Jekyll、Mathematica、Pelican 三个程序包都想完善，但填坑需时间。GitHub 上 MBlogJekyll 表示 Mathematica+Jekyll 建站方式，MBlogPelican 表示 Mathematica+Pelican 方式。</p>

@@ -1,0 +1,18 @@
+---
+layout: post
+title: "HelloWorld"
+category: Unclassified
+date: 2015-06-11
+---
+
+<p>本文记录了在 Mathematica 中多种方式实现 HelloWorld 的尝试：Mathematica 内置、C 编译器（CCompiler）、Java、JLink、以及 Scala 等。</p>
+
+<h2>概要</h2>
+
+<p><strong>Mathematica</strong>：使用 <code>HelloWorld</code> 或 <code>Print@HelloWorld</code> 输出；也可用 GUIRunModal 创建简单 GUI 弹窗。</p>
+
+<p><strong>C</strong>：通过 CCompiler 相关功能调用 C 代码。</p>
+
+<p><strong>Java / JLink</strong>：<code>Needs["JLink`"]</code> 与 <code>InstallJava[]</code> 加载 JVM，用 <code>LoadJavaClass</code>、<code>JavaNew</code> 加载并实例化 Java 类，通过 <code>objHelloWorld@main[{}]</code> 调用 main 方法。JLink 的 Java Console 对中文支持有限。</p>
+
+<p><strong>Scala 等</strong>：对于没有直接 Link 的语言，可用 <code>RunProcess</code> 或 <code>!</code> 等外部进程方式调用。</p>

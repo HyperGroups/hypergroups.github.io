@@ -1,0 +1,12 @@
+---
+layout: post
+title: "MathKernel-LinkLaunch刷博客访问量的一个示例"
+category: Mathematica
+date: 2013-05-01
+---
+
+<p>用 Mathematica 的 Link 机制多开几个内核并发访问博客，作为刷访问量的示例。</p>
+
+<h2>要点</h2>
+
+<p><code>LinkCreate[LinkProtocol -&gt; "TCPIP"]</code> 创建 TCPIP 链接；用 <code>$CommandLine</code> 等启动子内核，子内核通过 Link 与主内核通信；多加载几个核心，每个发起 HTTP 请求访问指定 URL。仅为技术演示，实际刷量有违站点统计真实性，不宜滥用。</p>

@@ -13,6 +13,11 @@ highlighter: rouge
 kramdown:
   input: GFM
 
+collections:
+  post_renovated:
+    output: true
+    permalink: /:title
+
 exclude:
   - README.md
   - LICENSE
@@ -20,3 +25,4 @@ exclude:
   - Gemfile.lock
   - dev
   - .gitignore
+  - Pages

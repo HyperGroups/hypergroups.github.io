@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Mathematica编码笔记"
+category: Mathematica
+date: 2015-09-04
+---
+
+<p>CP936、Unicode、UTF-8、WindowsANSI 是 Mathematica 中常见的文本编码。</p>
+
+<h2>常见问题</h2>
+
+<p><strong>ExportString 编码设置无效</strong>：某些导出格式下 CharacterEncoding 可能不起作用，需用其他方式预处理。</p>
+<p><strong>FileTemplateApply、FilePrint</strong>：文件编码需显式指定。</p>
+<p><strong>C 编译器 Debug 信息、JLink Java Console</strong>：对中文支持有限。</p>
+<p><strong>Read/ReadList</strong>：导入时需指定 CharacterEncoding。</p>

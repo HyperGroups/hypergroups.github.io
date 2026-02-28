@@ -1,0 +1,12 @@
+---
+layout: post
+title: "给Mathematica的css文件修改与增加值"
+category: Mathematica
+date: 2013-05-01
+---
+
+<p>在 Mathematica 中修改或追加 CSS 文件内容的方法。参考 <a href="http://mathematica.stackexchange.com/q/39144/6648">Mathematica Stack Exchange</a>。</p>
+
+<h2>思路</h2>
+
+<p>先把 .css 复制为 .txt，Import 后修改再 Export 回 .css。若重复执行会导致覆盖，故需设计「可重复修改」流程：每次读取原文件，在内存中合并或替换后写回；或先备份再追加，避免覆盖已有改动。</p>

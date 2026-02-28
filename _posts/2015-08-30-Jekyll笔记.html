@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Jekyll笔记"
+category: Computer
+date: 2015-08-30
+---
+
+<p>Jekyll 使用与排错笔记汇总。</p>
+
+<h2>中文解码问题</h2>
+
+<p>重装系统后 <code>gem install jekyll</code> 升级到 1.4.3，常遇到 &quot;invalid byte sequence in GBK&quot; 错误。解决方式：</p>
+
+<p><strong>1.3.0 及以前</strong>：在 <code>convertible.rb</code> 中为 <code>File.read</code> 添加 <code>:encoding =&gt; "utf-8"</code>；或为 <code>read_yaml</code> 的 opts 指定 <code>{:encoding =&gt; "utf-8"}</code>。</p>
+
+<p><strong>1.4.3</strong>：可参考 1.3.0 的改法，或直接降级：<code>gem uninstall jekyll</code> 后 <code>gem install jekyll --version "=1.3.0"</code>。</p>
+
+<h2>其他</h2>
+
+<p>GitHub 官方 Jekyll 版本、重装记录、常见问题等，参考 Jekyll-1.4.3 札记及 Jekyll+Github-Note1。</p>

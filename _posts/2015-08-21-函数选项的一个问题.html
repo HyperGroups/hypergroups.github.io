@@ -1,0 +1,19 @@
+---
+layout: post
+title: "函数选项的一个问题"
+category: Mathematica
+date: 2015-08-21
+---
+
+<p>Mathematica 中，以 DownValue 形式定义的函数，当其参数为 <code>f[x][y, OptionsPattern[]]</code> 时，<code>OptionValue</code> 可能无法正确读取用户传入的选项值。</p>
+
+<h2>问题</h2>
+
+<p>例如 <code>f[d][7]</code> 返回 <code>{7, a0}</code> 正常，但 <code>f[d][7, a -&gt; a1]</code> 仍返回 <code>{7, a0}</code> 而非 <code>{7, a1}</code>。原因与 DownValue/UpValue 的求值顺序有关。</p>
+
+<h2>解决思路</h2>
+
+<p><strong>方案一</strong>：改用 UpValue 或调整函数定义形式，使 <code>OptionValue</code> 能正确绑定到选项。</p>
+<p><strong>方案二</strong>：在函数体内显式使用 <code>Options</code> 与模式匹配提取选项，而非依赖 <code>OptionValue</code>。</p>
+<p><strong>方案三</strong>：改用 <code>FilterRules</code> 等从 <code>Sequence</code> 中解析选项，再手动传入。</p>
+<p>具体实现需结合函数签名与调用方式选择。</p>

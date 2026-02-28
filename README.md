@@ -1,2 +1,5 @@
-﻿# MBlog
-我的博客相关的主要有几种方案，暂时是Mathematica+Jekyll的综合方案，有空可能会玩一下Pelican等。
+# Hyper-Space (MBlog)
+
+Jekyll 静态博客，部署于 GitHub Pages。
+
+完整说明与本地开发文档见 **dev** 分支：`dev/README.md`、`dev/docs/readme-project.md`、`dev/docs/local-setup.md`。

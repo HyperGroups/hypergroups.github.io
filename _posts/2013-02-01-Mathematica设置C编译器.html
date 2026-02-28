@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Mathematica设置C编译器"
+category: Mathematica
+date: 2013-02-01
+---
+
+<p>Mathematica 版本发布时仅识别当时的编译器信息（如 JDK、VC 版本）。Mathematica 9.0 默认识别 VC2010；若安装了 VC2012，未加选项调用时 <code>CCompilers[]</code> 可能返回空。</p>
+
+<h2>设置新编译器</h2>
+
+<p><code>Needs["CCompilerDriver`"]</code> 加载后，通过 <code>CCompilerInstall</code> 或配置选项指定新版本编译器路径。可查看 <code>$CCompiler</code>、<code>CCompilers[]</code> 确认。详见 CCompilerDriver 文档。</p>

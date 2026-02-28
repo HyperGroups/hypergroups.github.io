@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Publish to GitHub with Mathematica on Windows"
+category: Mathematica
+date: 2013-06-14
+---
+
+<p>在 Windows 8.1 下，用 Mathematica 生成网页后推送到 GitHub 的简要记录，重点是如何执行 git push。</p>
+
+<h2>方法一：自动填入用户名和密码</h2>
+
+<p>下载 <a href="https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories">git-credential-winstore</a> 等凭证助手，安装到 PortableGit 的 bin 目录，可实现一次保存、后续免输入。</p>
+
+<h2>方法二：用 .bat 调用 Git</h2>
+
+<p>把 GitShell 中常用的命令写入 PortableGit 的 git-cmd.bat 或自定义 .bat，在 Mathematica 中通过 <code>Run</code> 或外部进程调用该 .bat，实现 <code>cd</code> 到仓库目录、<code>git add</code>、<code>git commit</code>、<code>git push</code> 等操作。</p>
