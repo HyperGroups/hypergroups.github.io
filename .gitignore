@@ -1,6 +1,4 @@
-# 仅 dev 分支提交，master 不提交（见 dev/README.md）
-dev/
-skills/
+# dev/ and skills/ are tracked on dev branch only (see dev/README.md)
 
 _site
 Working/*
