@@ -2,6 +2,9 @@
 dev/
 
 _site
+.bundle
+vendor
+_site_serve.log
 _post_markdown
 _post_md
 _post_md_renovated

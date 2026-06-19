@@ -36,7 +36,10 @@
 }
 
 /* === 基础 === */
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
 
 body {
   padding-top: 0;
@@ -324,6 +327,25 @@ h3 {
 a { color: var(--wolfram-red); transition: color .15s ease; }
 a:hover, a:focus { color: var(--wolfram-red-dark); }
 
+/* 正文内链接：优雅的下划线 */
+.post-content a:not(.btn) {
+  text-decoration: underline;
+  text-decoration-color: var(--wolfram-red-soft);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.post-content a:not(.btn):hover {
+  text-decoration-color: var(--wolfram-red);
+}
+
+/* 键盘可达的焦点态 */
+a:focus-visible,
+.navbar .nav > li > a:focus-visible {
+  outline: 2px solid var(--wolfram-red);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* === 分隔线 === */
 hr {
   border: none;
@@ -331,7 +353,7 @@ hr {
   margin: 2rem 0;
 }
 
-/* === 行内代码 / 代码块 === */
+/* === 行内代码 === */
 code {
   background: #f4f2f2;
   color: var(--wolfram-red-dark);
@@ -341,23 +363,57 @@ code {
   border-radius: 4px;
 }
 
-pre {
-  background: #1e1e1e;
-  color: #e6e6e6;
-  border: none;
-  border-left: 4px solid var(--wolfram-red);
-  border-radius: var(--radius);
-  padding: 1rem 1.2rem;
+/* === 代码块 —— Mathematica notebook 输入单元风格 ===
+   浅色单元 + 右侧标志性 cell bracket「]」 */
+pre,
+.highlight > pre,
+figure.highlight pre {
+  position: relative;
+  background: #fcfcfc;
+  color: #1a1a1a;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: .9rem 2rem .9rem 1.1rem;   /* 右侧留出 bracket 空间 */
+  margin: 1.3rem 0;
   overflow-x: auto;
-  line-height: 1.55;
-  font-size: .92rem;
+  line-height: 1.62;
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  -webkit-overflow-scrolling: touch;
 }
+
+/* Mathematica cell bracket（右侧的「]」形）*/
+pre::after,
+.highlight > pre::after,
+figure.highlight pre::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  right: 7px;
+  width: 7px;
+  border: 1.5px solid #b0b0b0;
+  border-left: none;
+  pointer-events: none;
+}
+
 pre code {
   background: transparent;
   color: inherit;
   padding: 0;
   font-size: 1em;
+  border-radius: 0;
 }
+
+/* rouge 语法高亮容器去掉默认底色，交给上面的单元样式 */
+.highlight, figure.highlight { background: transparent; margin: 0; }
+
+/* 轻量 Wolfram Language 配色（rouge token） */
+.highlight .k, .highlight .kt { color: var(--wolfram-red-dark); }   /* 关键字 */
+.highlight .s, .highlight .s1, .highlight .s2 { color: #2e7d32; }   /* 字符串 */
+.highlight .c, .highlight .c1, .highlight .cm { color: #999; font-style: italic; } /* 注释 */
+.highlight .mi, .highlight .mf { color: #1565c0; }                  /* 数字 */
+.highlight .nf { color: #6a1b9a; }                                  /* 函数名 */
 
 /* === 页脚 === */
 footer {
