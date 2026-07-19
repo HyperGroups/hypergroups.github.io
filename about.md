@@ -13,8 +13,10 @@ title: 关于
 
 - [项目与研究](https://hypergroups.github.io/hypergroups/)
 - [Wolfram]({{ site.baseurl }}/wolfram)
+- [搜索]({{ site.baseurl }}/search.html)
 - [早期笔记 · 按年]({{ site.baseurl }}/archives.html)
 - [早期笔记 · 旧分类]({{ site.baseurl }}/categories.html)
+- [RSS]({{ site.baseurl }}/feed.xml) · [Sitemap]({{ site.baseurl }}/sitemap.xml)
 
 ## 外链
 

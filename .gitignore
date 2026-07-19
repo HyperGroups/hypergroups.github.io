@@ -20,6 +20,7 @@ MathematicaNotebooks
 old
 buildBlock.txt
 excludePost.txt
+# legacy local export; site now ships sitemap.xml
 sitemap.txt
 ~.pyc
 ~Thumbs.db

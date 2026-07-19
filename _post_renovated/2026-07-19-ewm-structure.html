@@ -1,0 +1,85 @@
+---
+layout: post
+title: "数学概观·结构图与篇幅"
+category: Math
+date: 2026-07-19
+permalink: /ewm/structure
+published: false
+---
+
+<p>据导读三轮读法与 Springer 原书（1977，X+270 页）目录页码整理。系列入口：<a href="{{ site.baseurl }}/ewm/">读《数学概观》勘误复盘</a>。</p>
+
+<style>
+.ewm-map { margin: 1.25rem 0 2rem; }
+.ewm-map svg { width: 100%; height: auto; display: block; max-width: 720px; }
+.ewm-legend { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; font-size: 0.9rem; color: var(--muted); margin: 0.75rem 0 0; }
+.ewm-legend i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-right: 0.35rem; vertical-align: -0.05em; }
+.ewm-note { color: var(--muted); font-size: 0.92rem; line-height: 1.65; margin-top: 0.75rem; }
+</style>
+
+<h2>一、阅读轮次路线</h2>
+
+<div class="ewm-map">
+<svg viewBox="0 0 720 300" role="img" aria-label="阅读轮次路线">
+  <text x="8" y="72" fill="#6a7684" font-size="13">第一轮</text>
+  <text x="8" y="152" fill="#6a7684" font-size="13">第二轮</text>
+  <text x="8" y="232" fill="#6a7684" font-size="13">技术深潜</text>
+  <g font-size="12" text-anchor="middle" font-family="system-ui,sans-serif">
+    <rect x="92" y="52" width="100" height="36" rx="2" fill="#1f5f8b"/><text x="142" y="74" fill="#fff">1·模型与现实</text>
+    <rect x="200" y="52" width="100" height="36" rx="2" fill="#1f5f8b"/><text x="250" y="74" fill="#fff">12·社会心理</text>
+    <rect x="308" y="52" width="100" height="36" rx="2" fill="#1f5f8b"/><text x="358" y="74" fill="#fff">9·级数</text>
+    <rect x="416" y="52" width="100" height="36" rx="2" fill="#1f5f8b"/><text x="466" y="74" fill="#fff">6·英雄世纪</text>
+    <rect x="524" y="52" width="100" height="36" rx="2" fill="#1f5f8b"/><text x="574" y="74" fill="#fff">2·数论</text>
+    <rect x="92" y="132" width="100" height="36" rx="2" fill="#2a7a9b"/><text x="142" y="154" fill="#fff">3·代数</text>
+    <rect x="200" y="132" width="100" height="36" rx="2" fill="#2a7a9b"/><text x="250" y="154" fill="#fff">4·几何线代</text>
+    <rect x="308" y="132" width="100" height="36" rx="2" fill="#2a7a9b"/><text x="358" y="154" fill="#fff">5·极限拓扑</text>
+    <rect x="416" y="132" width="100" height="36" rx="2" fill="#2a7a9b"/><text x="466" y="154" fill="#fff">10·概率</text>
+    <rect x="92" y="212" width="100" height="36" rx="2" fill="#5a6a3a"/><text x="142" y="234" fill="#fff">7·微分</text>
+    <rect x="200" y="212" width="100" height="36" rx="2" fill="#5a6a3a"/><text x="250" y="234" fill="#fff">8·积分</text>
+    <rect x="308" y="212" width="100" height="36" rx="2" fill="#5a6a3a"/><text x="358" y="234" fill="#fff">11·应用</text>
+  </g>
+</svg>
+<div class="ewm-legend">
+  <span><i style="background:#1f5f8b"></i>第一轮：叙述与思想</span>
+  <span><i style="background:#2a7a9b"></i>第二轮：结构语言</span>
+  <span><i style="background:#5a6a3a"></i>技术深潜：硬证明可换教科书</span>
+</div>
+<p class="ewm-note">框架章（1、6、12）与核心数学章（2–11）对应序言「从数论到应用」主体；章相对独立，不必通读。第 5、7、8 章是分析主链语言与技术，宜第二轮 / 深潜，不是「可删填充」。</p>
+</div>
+
+<h2>二、原书篇幅（页）与笔墨轻重</h2>
+
+<div class="ewm-map">
+<svg viewBox="0 0 720 360" role="img" aria-label="各章篇幅条形图">
+  <line x1="160" y1="44" x2="160" y2="332" stroke="#d5dde6" stroke-width="1"/>
+  <g font-size="12" fill="#121820" font-family="system-ui,sans-serif">
+    <text x="150" y="58" text-anchor="end">1 模型与现实</text>
+    <rect x="160" y="46" width="60" height="16" rx="1" fill="#1f5f8b"/><text x="226" y="58" fill="#6a7684">8</text>
+    <text x="150" y="82" text-anchor="end">2 数论</text>
+    <rect x="160" y="70" width="105" height="16" rx="1" fill="#2a7a9b"/><text x="271" y="82" fill="#6a7684">14</text>
+    <text x="150" y="106" text-anchor="end">3 代数</text>
+    <rect x="160" y="94" width="255" height="16" rx="1" fill="#2a7a9b"/><text x="421" y="106" fill="#6a7684">34</text>
+    <text x="150" y="130" text-anchor="end">4 几何与线代</text>
+    <rect x="160" y="118" width="360" height="16" rx="1" fill="#2a7a9b"/><text x="526" y="130" fill="#6a7684">48</text>
+    <text x="150" y="154" text-anchor="end">5 极限拓扑</text>
+    <rect x="160" y="142" width="143" height="16" rx="1" fill="#2a7a9b"/><text x="309" y="154" fill="#6a7684">19</text>
+    <text x="150" y="178" text-anchor="end">6 英雄世纪</text>
+    <rect x="160" y="166" width="75" height="16" rx="1" fill="#1f5f8b"/><text x="241" y="178" fill="#6a7684">10</text>
+    <text x="150" y="202" text-anchor="end">7 微分</text>
+    <rect x="160" y="190" width="255" height="16" rx="1" fill="#5a6a3a"/><text x="421" y="202" fill="#6a7684">34</text>
+    <text x="150" y="226" text-anchor="end">8 积分</text>
+    <rect x="160" y="214" width="278" height="16" rx="1" fill="#5a6a3a"/><text x="444" y="226" fill="#6a7684">37</text>
+    <text x="150" y="250" text-anchor="end">9 级数</text>
+    <rect x="160" y="238" width="128" height="16" rx="1" fill="#1f5f8b"/><text x="294" y="250" fill="#6a7684">17</text>
+    <text x="150" y="274" text-anchor="end">10 概率</text>
+    <rect x="160" y="262" width="135" height="16" rx="1" fill="#2a7a9b"/><text x="301" y="274" fill="#6a7684">18</text>
+    <text x="150" y="298" text-anchor="end">11 应用</text>
+    <rect x="160" y="286" width="98" height="16" rx="1" fill="#5a6a3a"/><text x="264" y="298" fill="#6a7684">13</text>
+    <text x="150" y="322" text-anchor="end">12 社会心理</text>
+    <rect x="160" y="310" width="68" height="16" rx="1" fill="#1f5f8b"/><text x="234" y="322" fill="#6a7684">9</text>
+  </g>
+</svg>
+<p class="ewm-note">颜色对应阅读轮次。最长为第 4 章（48 页）与第 8 章（37 页），最短为第 1 章（8 页）与第 12 章（9 页）。分析主链与线代篇幅大；框架章短而密——「薄书难读」往往来自跳跃与浓度，不来自总页数。</p>
+</div>
+
+<p>相关：<a href="{{ site.baseurl }}/ewm/compare">同类书比较</a> · <a href="{{ site.baseurl }}/ewm/glossary">术语对照</a>。</p>

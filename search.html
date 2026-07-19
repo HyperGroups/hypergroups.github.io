@@ -1,0 +1,31 @@
+---
+layout: default
+title: 搜索
+---
+
+<header class="page-intro">
+  <h1>搜索</h1>
+  <p class="lead">检索本站页面与早期笔记。索引在构建时生成，无需后端。</p>
+</header>
+
+<form class="site-search" id="site-search" role="search" action="{{ site.baseurl }}/search.html" method="get">
+  <label class="sr-only" for="search-input">关键词</label>
+  <input id="search-input" class="search-input" type="search" name="q" placeholder="数学、Agent、Wolfram…" autocomplete="off" autofocus>
+  <button class="btn-portal btn-portal-primary" type="submit">搜索</button>
+</form>
+
+<p class="search-meta" id="search-meta" hidden></p>
+<ul class="post-list list-unstyled search-results" id="search-results"></ul>
+
+<script src="{{ site.baseurl }}/js/search.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    SiteSearch.init({
+      indexUrl: '{{ site.baseurl }}/search.json',
+      input: '#search-input',
+      form: '#site-search',
+      results: '#search-results',
+      meta: '#search-meta'
+    });
+  });
+</script>

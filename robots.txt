@@ -1,0 +1,10 @@
+---
+layout: null
+---
+User-agent: *
+Allow: /
+
+# 早期笔记与站点页均可抓取；构建产物目录勿爬（若误暴露）
+Disallow: /dev/
+
+Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml

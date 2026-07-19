@@ -1,0 +1,32 @@
+---
+layout: null
+---
+[
+{% assign first = true %}
+{% for post in site.posts %}
+  {% unless first %},{% endunless %}{% assign first = false %}
+  {
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    "category": {{ post.category | default: "" | jsonify }},
+    "kind": "post",
+    "excerpt": {{ post.content | strip_html | strip_newlines | truncate: 160 | jsonify }}
+  }
+{% endfor %}
+{% for page in site.pages %}
+  {% if page.title and page.layout %}
+    {% if page.name != "search.json" and page.name != "sitemap.xml" and page.name != "robots.txt" and page.name != "feed.xml" %}
+  {% unless first %},{% endunless %}{% assign first = false %}
+  {
+    "title": {{ page.title | jsonify }},
+    "url": {{ page.url | relative_url | jsonify }},
+    "date": "",
+    "category": "page",
+    "kind": "page",
+    "excerpt": {{ page.content | strip_html | strip_newlines | truncate: 160 | jsonify }}
+  }
+    {% endif %}
+  {% endif %}
+{% endfor %}
+]

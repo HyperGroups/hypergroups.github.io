@@ -427,6 +427,66 @@ h3 {
   font-weight: 600;
 }
 
+/* === 搜索 === */
+.site-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin: 1.25rem 0 1rem;
+}
+
+.search-input {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.search-meta {
+  color: var(--muted);
+  font-size: .95rem;
+  margin: 0 0 .75rem;
+}
+
+.search-results li {
+  flex-wrap: wrap;
+}
+
+.search-excerpt {
+  flex: 1 1 100%;
+  margin: .2rem 0 0;
+  padding-left: 0;
+  color: var(--muted);
+  font-size: .92rem;
+  font-weight: 400;
+}
+
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .65rem 1.1rem;
+  margin: .35rem 0 0;
+  font-family: var(--font-ui);
+  font-size: .88rem;
+}
+
+.site-footer {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
 .section-head {
   display: flex;
   align-items: baseline;
