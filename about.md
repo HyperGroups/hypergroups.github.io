@@ -1,19 +1,27 @@
 ---
 layout: default
+title: 关于
 ---
 
 ## 关于本站
 
-本站由 **Jekyll** 构建、托管于 **GitHub Pages**，由 LLM 辅助维护；不再依赖 Wolfram Mathematica 的导出或部署。
+**Hyper-Space** 是个人门户：连向正在做的事与持续兴趣——AI / Agent / AIGC、数学与应用数学、计算机与图形学、哲学，以及 Wolfram。不必读成履历，更像一组还在生长的线索。
 
-技术栈为静态站点框架 Jekyll + Markdown 写作与 Git 版本管理。后续会逐步整理结构、统一格式，并视需要扩展功能。
+主站偏入口与当下；更具体的项目与研究整理在 [项目站](https://hypergroups.github.io/hypergroups/)。本仓库里还有一批**早期笔记**存档，供回看，不占主线。
+
+## 入口
+
+- [项目与研究](https://hypergroups.github.io/hypergroups/)
+- [Wolfram]({{ site.baseurl }}/wolfram)
+- [早期笔记 · 按年]({{ site.baseurl }}/archives.html)
+- [早期笔记 · 旧分类]({{ site.baseurl }}/categories.html)
+
+## 外链
+
+- [GitHub](https://github.com/HyperGroups)
+- [知乎](https://www.zhihu.com/question/27834147/answer/2122655819)
+- [Bilibili](https://space.bilibili.com/289129399)
 
 ---
 
-## About Me
-
-理工科背景，以数学与编程为主、兼有人文阅读。长期用 **Mathematica / Wolfram Language** 做算法、可视化与笔记，也涉猎 Python、NumPy、Pandas、Jekyll 等。对机器学习、算法实现、工作流与知识管理有兴趣。
-
-兴趣较杂：算法与数学（欧几里得算法、对偶空间、KNN 等）、文学与英语（《小王子》《夏洛特的网》）、佛经（心经）。喜欢用代码把想法落地，并把不同领域的概念串联起来。
-
-博客主要是个人知识整理与笔记归档，有些内容是「玩玩的心态」，忙或没心情时可能几个月不更新。
+由 **Jekyll** 构建，托管于 **GitHub Pages**。

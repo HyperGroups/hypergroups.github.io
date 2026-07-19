@@ -1,7 +1,7 @@
 # Jekyll 配置（重构后精简版）
 name: Hyper-Space
-description: Unlinear Space
-url: "https://hypergroups.top"
+description: Unlinear Space — 入口、实验与正在做的事
+url: "https://hypergroups.github.io"
 baseurl: ""
 
 github: HyperGroups

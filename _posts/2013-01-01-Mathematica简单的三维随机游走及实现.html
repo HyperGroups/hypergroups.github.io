@@ -5,12 +5,346 @@ category: Mathematica
 date: 2013-01-01
 ---
 
-<p>用 Mathematica 实现三维随机游走的几种简单方式。</p>
+<p>三维随机游走：每一步在空间中随机选一个方向，位置累加，轨迹在三维里扭来扭去。本文用 Mathematica 把几种直观画法写清楚——立方体堆路径、格点管道、连续方向、动画与统计检验。文中插图均由配套脚本 <a href="{{ site.baseurl }}/wolfram/random-walk-3d/"><code>wolfram/random-walk-3d/random-walk-3d.wls</code></a>（<code>SeedRandom[20130101]</code>）导出，可本地复现。</p>
+
+<p>若关心随机游走在随机过程、强化学习等方向的理论背景，见姊妹篇 <a href="{{ site.baseurl }}/随机游走的理论与跨学科应用">随机游走的理论与跨学科应用</a>。</p>
+
+<h2>模型约定</h2>
+
+<p>离散三维游走可写成</p>
+
+<pre><code>S_0 = 0,    S_{k+1} = S_k + X_{k+1}
+</code></pre>
+
+<p>其中步长 <code>X_i</code> 独立同分布，取值于某个有限方向集（六面邻接、八顶点对角等）。Mathematica 里对应的就是：先定 <code>dirs</code>，再 <code>RandomChoice</code> / <code>Accumulate</code> / <code>FoldList</code>，最后交给 <code>Graphics3D</code>。</p>
 
 <h2>方法一：立方体叠加</h2>
 
-<p>用 <code>FoldList</code> 配合 <code>TranslationTransform</code>，每次在随机方向（六方向之一）平移一个立方体，得到游走路径。</p>
+<p>思路：准备单位立方体 <code>Cuboid[]</code>，每一步沿六面方向之一平移一格（<code>±e_x, ±e_y, ±e_z</code>），用 <code>FoldList</code> 记下所有变换后的立方体，叠在一起就是游走。</p>
 
-<h2>方法二：格点游走</h2>
+<p>六方向可写成单位矩阵及其相反：</p>
 
-<p>定义格点方向（如八立方体顶点），用 <code>Accumulate</code> 累加随机步长，<code>Graphics3D[Tube[data]]</code> 绘制管道。</p>
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+(* {1,0,0}, {0,1,0}, {0,0,1}, {-1,0,0}, {0,-1,0}, {0,0,-1} *)
+</code></pre>
+
+<p>用 <code>FoldList</code> 把平移作用在图形上。<code>GeometricTransformation</code> 配合 <code>TranslationTransform</code>，每步把上一步的立方体再挪一格：</p>
+
+<pre><code>n = 60;
+cuboids = FoldList[
+  GeometricTransformation[#1, TranslationTransform[#2]] &amp;,
+  Cuboid[],
+  RandomChoice[dirs, n]
+];
+Graphics3D[
+  {Opacity[0.85], EdgeForm[GrayLevel[0.3]], cuboids},
+  Boxed -&gt; True, BoxRatios -&gt; Automatic
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/01-cuboid-foldlist.png" alt="立方体 FoldList 叠加的三维随机游走">
+  <figcaption>方法一：60 步六面游走，立方体逐格平移叠加。</figcaption>
+</figure>
+
+<p>若更想先拿坐标再画，也可以先累加位移，再批量套变换——语义一样，往往更清晰：</p>
+
+<pre><code>positions = FoldList[Plus, {0, 0, 0}, RandomChoice[dirs, n]];
+Graphics3D[
+  GeometricTransformation[Cuboid[], TranslationTransform /@ positions]
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/01b-cuboid-from-positions.png" alt="先累加坐标再批量变换立方体">
+  <figcaption>同一模型：先 <code>FoldList[Plus, …]</code> 得坐标，再批量 <code>TranslationTransform</code>。</figcaption>
+</figure>
+
+<p>体块挨着堆，路径像一条弯折的“积木蛇”，体感很强，适合步数不太多时展示。步数一大，图元过多会变慢，可改用方法二。</p>
+
+<h3>着色：按步序渐变</h3>
+
+<p>给每个立方体上色，能看出“时间从哪走到哪”：</p>
+
+<pre><code>positions = FoldList[Plus, {0, 0, 0}, RandomChoice[dirs, 80]];
+cols = Blend[{Blue, Cyan, Yellow, Orange}, #] &amp; /@ Rescale[Range[0, Length[positions] - 1]];
+Graphics3D[
+  MapThread[
+    {#1, EdgeForm[GrayLevel[0.35]],
+     GeometricTransformation[Cuboid[], TranslationTransform[#2]]} &amp;,
+    {cols, positions}
+  ],
+  Boxed -&gt; False, Lighting -&gt; "Neutral"
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/01c-cuboid-colored.png" alt="按步序着色的立方体游走">
+  <figcaption>蓝 → 橙表示时间先后；起点与终点一目了然。</figcaption>
+</figure>
+
+<h2>方法二：格点游走 + Tube</h2>
+
+<p>只关心轨迹点，不堆实体。方向取立方体八个顶点方向 <code>Tuples[{-1, 1}, 3]</code>，即对角线上的八个格点向量；用 <code>Accumulate</code> 累加随机步长，再用 <code>Tube</code> 画成管道。</p>
+
+<pre><code>dirs = Tuples[{-1, 1}, 3];
+(* 八个方向：{±1,±1,±1} 的全部组合 *)
+
+data = Accumulate[RandomChoice[dirs, 200]];
+Graphics3D[
+  {Orange, Tube[data, 0.35]},
+  Boxed -&gt; False, ViewPoint -&gt; {1.3, -2.4, 2}
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/02-tube-dirs8.png" alt="八顶点方向 Tube 轨迹">
+  <figcaption>八顶点方向、200 步；<code>Tube</code> 比折线更有体积感。</figcaption>
+</figure>
+
+<p>若希望从原点出发，把原点接到步长序列前面再累加：</p>
+
+<pre><code>data = Accumulate[Prepend[RandomChoice[dirs, 200], {0, 0, 0}]];
+Graphics3D[Tube[data, 0.3]]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/02b-tube-from-origin.png" alt="从原点出发的 Tube 轨迹">
+  <figcaption>显式接上原点后再 <code>Accumulate</code>。</figcaption>
+</figure>
+
+<p>六面邻接格点（与方法一同方向）同样写法，只换 <code>dirs</code>：</p>
+
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+data = Accumulate[Prepend[RandomChoice[dirs, 300], {0, 0, 0}]];
+Graphics3D[{CapForm["Butt"], Tube[data, 0.25]}]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/02c-tube-dirs6.png" alt="六面方向 Tube 轨迹">
+  <figcaption>六面邻接、300 步；轴对齐折线更“方正”。</figcaption>
+</figure>
+
+<p><code>Tube</code> 比 <code>Line</code> 更有体积感；步数上千时仍轻巧，适合长轨迹。</p>
+
+<h3>起终点与自交感</h3>
+
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+path = Accumulate[Prepend[RandomChoice[dirs, 400], {0, 0, 0}]];
+Graphics3D[{
+  {GrayLevel[0.55], Tube[path, 0.2]},
+  {Green, Sphere[First[path], 0.55]},
+  {Red, Sphere[Last[path], 0.55]}
+}, Boxed -&gt; False]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/02d-tube-endpoints.png" alt="标出起终点的 Tube 轨迹">
+  <figcaption>绿球起点、红球终点；三维瞬逝游走往往不会贴回原点。</figcaption>
+</figure>
+
+<h2>方法三：连续方向（球面随机步）</h2>
+
+<p>离散格点之外，可在单位球上均匀取方向，得到更接近布朗运动直觉的折线：</p>
+
+<pre><code>step[] := Normalize @ RandomReal[NormalDistribution[0, 1], 3];
+path = Accumulate[Table[step[], 500]];
+Graphics3D[
+  {ColorData["Rainbow"][0.15], Tube[path, 0.08]},
+  Boxed -&gt; False, ViewPoint -&gt; {2, -2, 1.2}
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/03-spherical-steps.png" alt="球面上随机方向的连续步游走">
+  <figcaption>球面均匀方向、固定步长直觉；轨迹更“布朗”。</figcaption>
+</figure>
+
+<p>用三维标准正态再归一化，方向在球面上近似均匀（高斯向量的旋转对称性）。若要固定步长 <code>δ</code>，写成 <code>δ * step[]</code> 即可。</p>
+
+<h2>方法四：有偏游走与受限区域</h2>
+
+<p>现实模型里步长往往不对称，或被边界挡住。下面给一个向 <code>+z</code> 略偏、并限制在盒子内的版本：</p>
+
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+weights = {1, 1, 1.4, 1, 1, 0.7}; (* +z 更易被选中 *)
+box = Cuboid[{-8, -8, -8}, {8, 8, 8}];
+
+insideQ[p_] := And @@ Thread[-8 &lt;= p &lt;= 8];
+
+biasedStep[p_] := Module[{cand},
+  cand = p + RandomChoice[weights -&gt; dirs];
+  If[insideQ[cand], cand, p]
+];
+
+path = NestList[biasedStep, {0, 0, 0}, 600];
+Graphics3D[{
+  {Opacity[0.08], EdgeForm[None], box},
+  {Orange, Tube[path, 0.22]},
+  {Red, Sphere[Last[path], 0.4]}
+}, Boxed -&gt; False]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/04-biased-boxed.png" alt="盒子内有偏随机游走">
+  <figcaption>向 <code>+z</code> 略偏、撞墙停留；轨迹整体上浮并被盒子约束。</figcaption>
+</figure>
+
+<p>撞墙时停在原地（反射/吸收可再改）；权重一调，轨迹就会整体“往上漂”。</p>
+
+<h2>动画：一步步长出来</h2>
+
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+path = Accumulate[Prepend[RandomChoice[dirs, 120], {0, 0, 0}]];
+
+Animate[
+  Graphics3D[
+    {CapForm["Round"], Tube[Take[path, k], 0.28],
+     Red, Sphere[path[[k]], 0.45]},
+    PlotRange -&gt; (MinMax /@ Transpose[path]),
+    Boxed -&gt; False, SphericalRegion -&gt; True
+  ],
+  {k, 2, Length[path], 1},
+  AnimationRate -&gt; 12
+]
+</code></pre>
+
+<p>笔记本里用 <code>Animate</code>；脚本侧用帧序列导出 GIF（无前端亦可复现）：</p>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/05-walk-frames.gif" alt="随机游走逐步生长动画">
+  <figcaption>120 步轨迹的帧动画；红球为当前端点。</figcaption>
+</figure>
+
+<h2>统计：均方位移</h2>
+
+<p>对称格点游走在大步数下，均方位移应近似线性增长：<code>⟨|S_n|²⟩ ∝ n</code>。用多条轨迹验证：</p>
+
+<pre><code>dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]];
+n = 200; trials = 400;
+
+msd = Mean @ Table[
+  With[{path = Accumulate[RandomChoice[dirs, n]]},
+    Total /@ (path^2)  (* |S_k|² 随 k *)
+  ],
+  {trials}
+];
+
+ListLinePlot[msd,
+  AxesLabel -&gt; {"n", "⟨r²⟩"},
+  PlotLabel -&gt; "3D 格点游走：均方位移",
+  PlotTheme -&gt; "Detailed"
+]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/06-msd.png" alt="三维格点游走均方位移曲线">
+  <figcaption>400 条轨迹平均后的 ⟨r²⟩；接近直线即符合扩散尺度 √n。</figcaption>
+</figure>
+
+<p>单条轨迹的末端距离分布也可看一眼：</p>
+
+<pre><code>ends = Table[
+  Norm @ Total @ RandomChoice[dirs, 200],
+  {2000}
+];
+Histogram[ends, 40, "PDF", AxesLabel -&gt; {"|S_n|", "密度"}]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/06b-end-distance-hist.png" alt="末端距离直方图">
+  <figcaption>2000 次、各 200 步的末端距离 |S_n| 分布。</figcaption>
+</figure>
+
+<h2>一点对比</h2>
+
+<table>
+<thead>
+<tr><th></th><th>立方体叠加</th><th>格点 + Tube</th><th>球面连续步</th></tr>
+</thead>
+<tbody>
+<tr><td>数据</td><td>变换后的 <code>Cuboid</code></td><td>坐标列表</td><td>坐标列表</td></tr>
+<tr><td>方向</td><td>常取六面</td><td>六面或八顶点</td><td>单位球连续</td></tr>
+<tr><td>观感</td><td>积木感、占空间</td><td>细管轨迹、步数可更大</td><td>更“布朗”</td></tr>
+<tr><td>核心函数</td><td><code>FoldList</code> + <code>TranslationTransform</code></td><td><code>Accumulate</code> + <code>Tube</code></td><td><code>Normalize</code> + <code>Accumulate</code></td></tr>
+<tr><td>适用</td><td>短路径演示</td><td>长轨迹 / 动画</td><td>连续模型直觉</td></tr>
+</tbody>
+</table>
+
+<h2>小封装</h2>
+
+<p>日常试错时可以收成一个函数：</p>
+
+<pre><code>RandomWalk3D[n_, opts : OptionsPattern[Graphics3D]] := Module[
+  {dirs = Join[IdentityMatrix[3], -IdentityMatrix[3]], path},
+  path = Accumulate[Prepend[RandomChoice[dirs, n], {0., 0., 0.}]];
+  Graphics3D[
+    {ColorData["SolarColors"][0.55], CapForm["Round"], Tube[path, 0.25]},
+    Boxed -&gt; False, SphericalRegion -&gt; True, opts
+  ]
+];
+
+RandomWalk3D[300, ViewPoint -&gt; {1.4, -2.2, 1.5}]
+</code></pre>
+
+<figure class="post-figure">
+  <img src="{{ site.baseurl }}/assets/posts/random-walk-3d/07-randomwalk3d.png" alt="RandomWalk3D 封装函数输出">
+  <figcaption><code>RandomWalk3D[300]</code> 一键出图。</figcaption>
+</figure>
+
+<p>方向集、权重、边界、着色都可以做成选项，按需要再拆。完整脚本与输出目录见 <a href="{{ site.baseurl }}/wolfram/random-walk-3d/">wolfram/random-walk-3d</a>。</p>
+
+<h2>小结</h2>
+
+<p>两种经典写法——<code>FoldList</code> 堆立方体、与 <code>Accumulate</code> + <code>Tube</code>——已经够把三维随机游走在笔记本里画出来。再加上连续步、有偏/受限、动画和均方位移，就能从“好看”走到“能检验模型”。改方向集、步数和样式做实验时，优先用坐标列表那条路，扩展成本最低。</p>
+
+<h3>这篇文章的渊源</h3>
+
+<p>方法一并非凭空发明。Wolfram Language 文档 <code>TranslationTransform</code> 里就有一条示例，标题正是 “A random translation walk”：用 <code>FoldList</code> 把 <code>GeometricTransformation[..., TranslationTransform[#2]]</code> 反复作用在 <code>Cuboid[]</code> 上，方向由 <code>RandomChoice</code> 给出。本文 2013 年记下的，就是把这条文档套路拆开讲清楚——六面方向怎么写、先累加坐标再批量变换为何更清晰——再补上 <code>Tube</code> / <code>Accumulate</code> 的格点画法，以及后来加上的连续步、有偏与统计检验。可以说：文档给了“一行能跑的种子”，这篇是把它展开成可改、可验的笔记。</p>
+
+<h3>Fold 与 FoldList 展开</h3>
+
+<p>游走的数学是 <code>S<sub>k+1</sub> = f(S<sub>k</sub>, X<sub>k+1</sub>)</code>。Mathematica 里：</p>
+
+<pre><code>Fold[f, x, {a, b, c}]
+(* → f[f[f[x, a], b], c]  只要终值 *)
+
+FoldList[f, x, {a, b, c}]
+(* → {x, f[x,a], f[f[x,a],b], f[f[f[x,a],b],c]}  全程快照 *)
+</code></pre>
+
+<p>方法一要的是<strong>整条轨迹上的图形</strong>，所以用 <code>FoldList</code>；若只要终点立方体，改 <code>Fold</code> 即可。<code>FoldList[Plus, {0,0,0}, steps]</code> 与 <code>Accumulate[Prepend[steps, {0,0,0}]]</code> 在加法情形下等价——<code>Accumulate</code> 是“二元运算固定为 <code>Plus</code>”的特化；一旦 <code>f</code> 变成几何变换合成，就必须回到一般的 <code>Fold</code> / <code>FoldList</code>。</p>
+
+<pre><code>(* 与本文方法一同一骨架 *)
+FoldList[
+  GeometricTransformation[#1, TranslationTransform[#2]] &amp;,
+  Cuboid[],
+  RandomChoice[dirs, n]
+]
+</code></pre>
+
+<h3>计算机科学与函数式内涵</h3>
+
+<p>在函数式编程里，这叫 <strong>fold</strong>（亦称 reduce、inject）：用一个二元运算把列表“折”进累加器。它是列表上的<strong>catamorphism</strong>——结构性递归的标准形态：对空列表给初值，对 <code>x :: xs</code> 做 <code>f(x, fold(xs))</code>（右折）或对称的左折。随机游走、前缀和、状态机步进、解析器组合子，本质都是“状态 × 输入 → 新状态”的左折；<code>FoldList</code> 则多露出中间状态，对应 scan / prefix 一族，正好服务可视化与调试。</p>
+
+<p>相对命令式 <code>for</code> 循环就地改坐标，fold 把<strong>更新规则</code>收成参数 <code>f</code>：换方向集、换有偏权重、换边界策略，往往只改 <code>f</code> 或列表，不改控制流。这也是本文方法一能从“平移立方体”平滑扩到“任意几何变换序列”的原因。</p>
+
+<h3>其它语言里的近亲</h3>
+
+<table>
+<thead>
+<tr><th>语言 / 库</th><th>只要终值（≈ Fold）</th><th>要中间结果（≈ FoldList）</th></tr>
+</thead>
+<tbody>
+<tr><td>Haskell</td><td><code>foldl</code> / <code>foldr</code></td><td><code>scanl</code> / <code>scanr</code></td></tr>
+<tr><td>OCaml / F#</td><td><code>List.fold_left</code></td><td>自写 scan，或 Seq.scan（F#）</td></tr>
+<tr><td>Scala</td><td><code>foldLeft</code></td><td><code>scanLeft</code></td></tr>
+<tr><td>Python</td><td><code>functools.reduce</code></td><td>手写循环，或 <code>itertools.accumulate</code>（限加法等）</td></tr>
+<tr><td>JavaScript</td><td><code>array.reduce</code></td><td>自写；无内置 scan</td></tr>
+<tr><td>Rust</td><td><code>Iterator::fold</code></td><td><code>scan</code>（闭包里可变状态）</td></tr>
+<tr><td>C++ (STL)</td><td><code>std::accumulate</code></td><td><code>std::partial_sum</code>（偏数值）</td></tr>
+<tr><td>NumPy</td><td>—</td><td><code>numpy.cumsum</code>（加法特化，≈ Accumulate）</td></tr>
+</tbody>
+</table>
+
+<p>格点游走在别处常写成 <code>cumsum(random_steps)</code>；立方体叠加那种“<code>f</code> 是几何变换”的版本，在多数语言里没有现成的 <code>GeometricTransformation</code>，但 fold/scan 骨架一样——累加器换成变换矩阵或位姿即可。读文档示例、用 <code>FoldList</code> 画积木蛇、再对照上表换语言重写一遍，是把这篇笔记从 Mathematica 语法迁到通用计算思维的最短路径。</p>

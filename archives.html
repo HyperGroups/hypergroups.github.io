@@ -1,22 +1,29 @@
 ---
 layout: default
+title: 早期笔记
 ---
 
-<div class="well">
-{%for post in site.posts %}
+<header class="page-intro">
+  <h1>早期笔记</h1>
+  <p class="lead">较早年间的博客存档，按年份排列。当前主线请回 <a href="{{ site.baseurl }}/">首页</a> 或 <a href="https://hypergroups.github.io/hypergroups/" rel="noopener">项目站</a>。</p>
+  <p><a href="{{ site.baseurl }}/categories.html">按旧分类浏览 →</a></p>
+</header>
+
+<div class="well archive-well">
+{% for post in site.posts %}
     {% unless post.next %}
-        <h1>{{ post.date | date: '%Y' }}</h1>
-        <ul>
+        <h2 class="archive-year">{{ post.date | date: '%Y' }}</h2>
+        <ul class="archive-list">
     {% else %}
         {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
         {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
         {% if year != nyear %}
             </ul>
-            <h1>{{ post.date | date: '%Y' }}</h1>
-            <ul>
+            <h2 class="archive-year">{{ post.date | date: '%Y' }}</h2>
+            <ul class="archive-list">
         {% endif %}
     {% endunless %}
-    <li><a href="{{ site.baseurl}}{{ post.url }}">{{ post.date | date: "%b %-d" }} - {{ post.title }}</a></li>
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%Y-%m-%d" }} — {{ post.title }}</a></li>
 {% endfor %}
 </ul>
 </div>

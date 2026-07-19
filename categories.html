@@ -1,17 +1,22 @@
 ---
 layout: default
+title: 早期分类
 ---
 
-<div class="well">
+<header class="page-intro">
+  <h1>早期分类</h1>
+  <p class="lead">旧博客的分类结构，仅作存档索引。当下线索见 <a href="{{ site.baseurl }}/">首页</a>。</p>
+</header>
 
+<div class="well archive-well">
 {% for category in site.categories %}
-<h1>{{ category | first | capitalize }}  ( {{ category | last | size }} )</h1>
-
-<ul class="arc-list">
+  {% assign cat_name = category | first %}
+  {% assign cat_slug = cat_name | slugify %}
+  <h2 class="archive-year" id="{{ cat_slug }}">{{ cat_name }} <span class="cat-count">({{ category | last | size }})</span></h2>
+  <ul class="archive-list">
     {% for post in category.last %}
-        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%b %-d" }} - {{ post.title }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date: "%Y-%m-%d" }} — {{ post.title }}</a></li>
     {% endfor %}
-</ul>
+  </ul>
 {% endfor %}
-
 </div>

@@ -1,23 +1,85 @@
 ---
-layout: default
+layout: home
 title: 首页
 ---
 
-<header class="home-hero">
-  <h1>{{ site.name }}</h1>
-  <p class="lead">{{ site.description }}</p>
-</header>
+<section class="portal-hero">
+  <div class="portal-hero-grid" aria-hidden="true"></div>
+  <div class="portal-hero-inner">
+    <p class="brand-mark">HyperGroups</p>
+    <h1>{{ site.name }}</h1>
+    <p class="lead">{{ site.description }}</p>
+    <p class="hero-tagline">面向正在做的事：AI 与 Agent、AIGC、数学与计算、图形与哲学。旧笔记另有归档，不占主场。</p>
 
-<div class="callout">
-  <p><strong>Welcome to my wonderland.</strong> This is an older version of the site, now refreshed with LLM-assisted editing and maintenance. 本站为旧版存档，已用最新 LLM 辅助能力做了刷新与维护。</p>
-</div>
+    <div class="hero-actions">
+      <a class="btn-portal btn-portal-primary" href="https://hypergroups.github.io/hypergroups/" rel="noopener">项目与研究</a>
+      <a class="btn-portal" href="{{ site.baseurl }}/about">关于</a>
+    </div>
 
-<h2 class="section-title">文章</h2>
-<ul class="post-list list-unstyled">
-  {% for post in site.posts %}
-  <li>
-    <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-  </li>
-  {% endfor %}
-</ul>
+    <nav class="hero-links" aria-label="外部链接">
+      <a href="https://github.com/HyperGroups" rel="noopener">GitHub</a>
+      <a href="https://www.zhihu.com/question/27834147/answer/2122655819" rel="noopener">知乎</a>
+      <a href="https://space.bilibili.com/289129399" rel="noopener">Bilibili</a>
+    </nav>
+  </div>
+</section>
+
+<section class="home-fields" aria-labelledby="fields-heading">
+  <div class="section-head">
+    <h2 id="fields-heading" class="section-title">当下线索</h2>
+  </div>
+  <p class="fields-lead">内容会从这些方向长出来；这里是入口，不是旧文目录。</p>
+  <ul class="field-list">
+    <li>
+      <a href="https://hypergroups.github.io/hypergroups/" rel="noopener">
+        <span class="field-name">AI · Agent</span>
+        <span class="field-desc">智能体、工作流与系统</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://hypergroups.github.io/hypergroups/" rel="noopener">
+        <span class="field-name">AIGC</span>
+        <span class="field-desc">生成、多智能体与创作工具</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ site.baseurl }}/about">
+        <span class="field-name">数学</span>
+        <span class="field-desc">应用数学与结构感</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ site.baseurl }}/about">
+        <span class="field-name">计算</span>
+        <span class="field-desc">计算机、工程与数据实践</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://hypergroups.github.io/hypergroups/" rel="noopener">
+        <span class="field-name">图形</span>
+        <span class="field-desc">图形学、建模与空间</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ site.baseurl }}/about">
+        <span class="field-name">哲学</span>
+        <span class="field-desc">概念、阅读与追问</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{ site.baseurl }}/wolfram">
+        <span class="field-name">Wolfram</span>
+        <span class="field-desc">仍在用的一条实验线索</span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<aside class="home-archive-note" aria-labelledby="archive-note-heading">
+  <h2 id="archive-note-heading" class="archive-note-title">早期笔记</h2>
+  <p>站点里还留着一批较早的博客与分类存档，作历史参考，不代表当前主线。</p>
+  <p class="archive-note-links">
+    <a href="{{ site.baseurl }}/archives.html">按年浏览</a>
+    <a href="{{ site.baseurl }}/categories.html">按旧分类浏览</a>
+  </p>
+</aside>
