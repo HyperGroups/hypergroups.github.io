@@ -1,5 +1,12 @@
-# dev/ and skills/ are tracked on dev branch only (see dev/README.md)
-dev/
+# Keep essential docs/scripts under dev/; ignore the rest of ad-hoc local material.
+dev/**
+!dev/README.md
+!dev/docs/
+!dev/docs/**
+!dev/scripts/
+!dev/scripts/**
+!dev/skills/
+!dev/skills/**
 
 _site
 .bundle
@@ -22,5 +29,7 @@ buildBlock.txt
 excludePost.txt
 # legacy local export; site now ships sitemap.xml
 sitemap.txt
+# generated Wolfram script outputs (canonical copies live under assets/posts/)
+wolfram/**/out/
 ~.pyc
 ~Thumbs.db

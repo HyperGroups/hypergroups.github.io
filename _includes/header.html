@@ -19,8 +19,22 @@
   <script src="{{ site.baseurl }}/js/bootstrap.min.js"></script>
   <link href="{{ site.baseurl }}/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ site.baseurl }}/css/theme.css" rel="stylesheet">
+  {% if page.layout == 'post' %}
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem('hg-reading-mode') || 'comfort';
+        if (mode !== 'wide' && mode !== 'comfort') mode = 'comfort';
+        document.documentElement.dataset.readingMode = mode;
+      } catch (e) {
+        document.documentElement.dataset.readingMode = 'comfort';
+      }
+    })();
+  </script>
+  {% endif %}
 </head>
-<body{% if page.layout == 'home' %} class="is-home"{% endif %}>
+<body{% if page.layout == 'home' %} class="is-home"{% elsif page.layout == 'post' %} class="is-post"{% endif %}>
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">

@@ -3,9 +3,10 @@ layout: post
 title: "Mathematica简单的三维随机游走及实现"
 category: Mathematica
 date: 2026-07-19
+visual: true
 ---
 
-<p>三维随机游走：每一步在空间中随机选一个方向，位置累加，轨迹在三维里扭来扭去。本文用 Mathematica 把几种直观画法写清楚——立方体堆路径、格点管道、连续方向、动画与统计检验。文中插图均由配套脚本 <a href="{{ site.baseurl }}/wolfram/random-walk-3d/"><code>wolfram/random-walk-3d/random-walk-3d.wls</code></a>（<code>SeedRandom[20130101]</code>）导出，可本地复现。</p>
+<p>三维随机游走：每一步在空间中随机选一个方向，位置累加，轨迹在三维里扭来扭去。本文用 Mathematica 把几种直观画法写清楚——立方体堆路径、格点管道、连续方向、动画与统计检验。文中插图均由配套脚本 <a href="{{ site.baseurl }}/wolfram/random-walk-3d/"><code>wolfram/random-walk-3d/random-walk-3d.wls</code></a>（<code>SeedRandom[20130101]</code>）导出，可本地复现。页顶可切换<strong>阅读栏</strong>（默认，正文更紧凑）与<strong>宽栏</strong>（看图与长代码更合适）。</p>
 
 <p>若关心随机游走在随机过程、强化学习等方向的理论背景，见姊妹篇 <a href="{{ site.baseurl }}/随机游走的理论与跨学科应用">随机游走的理论与跨学科应用</a>。</p>
 

@@ -1,29 +1,26 @@
-# 开发辅助目录（仅 dev 分支）
+# 开发辅助目录
 
-本目录及仓库根下的 `skills/` 仅在 **dev** 分支提交，**master** 分支不包含，便于在开发/协作时保留环境说明、脚本和技能配置，而不影响站点主仓库内容。
+本目录存放**不进站点构建**的开发文档、脚本与技能配置。GitHub Pages 构建时由根目录 [`_config.yml`](../_config.yml) 的 `exclude: [dev, ...]` 排除。
 
-## 目录说明
+## 目录
 
 | 路径 | 说明 |
 |------|------|
-| `dev/docs/` | 开发相关文档（本地环境、项目说明、流程等） |
-| `dev/docs/readme-project.md` | 原根目录 README 完整内容（项目与分支说明） |
-| `dev/Gemfile` | Gemfile 副本（实际由根目录 Gemfile 供 bundle 使用） |
-| `dev/scripts/` | 辅助脚本（Jekyll 本地启动 `serve.ps1`、Ruby 环境安装等） |
-| `dev/skills/` | 项目用 Cursor/Agent 技能或规则（可选） |
-| `dev/1Plugins/` | 旧插件（prettify、Mathematica 高亮等，非站点构建用） |
-| `dev/1stylesheets/` | 旧样式表，非站点主样式 |
-| 根目录 `skills/` | 与 dev 同策略，仅 dev 分支提交 |
+| [`docs/`](docs/README.md) | 项目说明、本地环境、Issues 记录 |
+| [`docs/issues/`](docs/issues/README.md) | 问题 / 决策 / 排障记录（按时间） |
+| [`scripts/`](scripts/) | Ruby / Jekyll 辅助脚本 |
+| [`skills/`](skills/README.md) | 可选的 Cursor / Agent 技能 |
 
-## 分支约定
+## 常用入口
 
-- **master**：仅站点与构建相关文件；`.gitignore` 已忽略 `dev/` 与 `skills/`。可选：将 `Gemfile`、`Gemfile.lock` 加入 master 的 `.gitignore`，则仅 dev 分支提交它们。
-- **dev**：在 master 基础上增加 `dev/`、`skills/`、根目录 `README.md`/`Gemfile` 等；从 master 合并时若 `.gitignore` 冲突，保留 dev 分支的忽略规则。
+- 项目概览：[`docs/project-overview.md`](docs/project-overview.md)
+- 本地环境：[`docs/local-setup.md`](docs/local-setup.md)
+- Issues 索引：[`docs/issues/README.md`](docs/issues/README.md)
+- 安装依赖：`.\dev\scripts\setup-ruby-env.ps1`
+- 本地预览（仓库根）：`bundle exec jekyll serve --host 127.0.0.1 --port 4000`
 
-## 常用（辅助文档与脚本已迁入 dev/，根目录仅保留最简 README）
+## 分支说明
 
-- 项目与分支说明：见 [docs/readme-project.md](docs/readme-project.md)（原根目录 `README.md` 完整版）
-- 本地 Jekyll 环境：见 [docs/local-setup.md](docs/local-setup.md)（原 `LOCAL.md`）
-- 依赖与版本：根目录 `Gemfile` 供 `bundle` 使用；[dev/Gemfile](Gemfile) 为副本
-- 一键安装 Ruby 依赖：在项目根执行 `.\dev\scripts\setup-ruby-env.ps1`
-- 本地启动 Jekyll：在项目根执行 `.\serve.ps1`（调用 `dev/scripts/serve.ps1`）或 `.\dev\scripts\serve.ps1`
+历史上约定「`dev/` 仅在 `dev` 分支」。当前改为：**文档与脚本可在 `master` 跟踪**（见根目录 `.gitignore` 白名单），避免协作时找不到 Issues。站点内容仍只由根目录 Jekyll 文件构成。
+
+切换到名为 `dev` 的分支时请用 `git switch dev`（目录名与分支名冲突时不要用模糊的 `git checkout dev`）。

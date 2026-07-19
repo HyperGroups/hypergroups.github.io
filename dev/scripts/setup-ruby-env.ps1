@@ -1,5 +1,4 @@
-# 在安装好 Ruby 后，于项目根目录运行此脚本以安装 Bundler 和 Jekyll 依赖。
-# 用法：在新终端中 cd 到本项目，执行 .\dev\scripts\setup-ruby-env.ps1
+﻿# 鍦ㄥ畨瑁呭ソ Ruby 鍚庯紝浜庨」鐩牴鐩綍杩愯姝よ剼鏈互瀹夎 Bundler 鍜?Jekyll 渚濊禆銆?# 鐢ㄦ硶锛氬湪鏂扮粓绔腑 cd 鍒版湰椤圭洰锛屾墽琛?.\dev\scripts\setup-ruby-env.ps1
 
 $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
